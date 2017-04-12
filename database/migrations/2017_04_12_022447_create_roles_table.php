@@ -19,7 +19,6 @@ class CreateRolesTable extends Migration
             $table->string('icNumber');
             $table->integer('role')->default('3');
             $table->string('status')->default('active');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
