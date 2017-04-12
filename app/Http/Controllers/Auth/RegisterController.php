@@ -51,6 +51,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'icNumber' => 'required|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -63,28 +64,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::where('icNumber', '=', $data['icNumber'])->first();
-        if ($user === null)
-        {
-            $role = Role::create([
-                'name' => $data['name'],
-                'icNumber' => $data['icNumber'],
-                'role' => '3',
-                'status' => 'active',
-            ]);
 
-            return User::create([
+        $role = Role::create([
             'name' => $data['name'],
             'icNumber' => $data['icNumber'],
-            'age' => $data['age'],
-            'gender' => $data['gender'],
-            'status' => $data['status'],
-            'address' => $data['address'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            ]);  
-        } 
+            'role' => '3',
+            'status' => 'active',
+        ]);
 
+        return User::create([
+        'name' => $data['name'],
+        'icNumber' => $data['icNumber'],
+        'age' => $data['age'],
+        'gender' => $data['gender'],
+        'status' => $data['status'],
+        'address' => $data['address'],
+        'email' => $data['email'],
+        'password' => bcrypt($data['password']),
+        ]);  
     }
 
 }
