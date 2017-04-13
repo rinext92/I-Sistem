@@ -11,9 +11,17 @@
 
                 <div class="panel-body">
                     <div class="content">
-                        <div class="title m-b-md">
-                            <center><img src="{{ asset('img/under-maintenance.png')}}" alt="under-maintenance" /></center>
-                        </div>
+                      <div class="row">
+                        
+                          <div class="col-sm-8">
+                              <img src="{{ asset('img/usr_profile/default.jpg')}}" class="img-rounded" alt="under-maintenance" width="200" height="236"/>
+                          </div>
+
+                          <div class="col-sm-4">
+                              col-sm-4
+                          </div>
+
+                      </div>
                     </div>
                 </div>
             </div>

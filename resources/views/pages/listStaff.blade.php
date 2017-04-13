@@ -12,8 +12,13 @@
                 <div class="panel-body">
                     <div class="content">
                         <div class="title m-b-md">
-                            <center><img src="{{ asset('img/under-maintenance.png')}}" alt="under-maintenance" /></center>
+                            <b>List of staff:</b>
+                            <br>
+                            @foreach ($staff as $p)
+                                {{$p->name}} <br>
+                            @endforeach
                         </div>
+                        {{ $staff->links() }}
                     </div>
                 </div>
             </div>
