@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/profile', 'HomeController@viewProfile');
 Route::get('/viewStaff', 'HomeController@listOfStaff');
+Route::get('/setting', 'HomeController@setting');
+

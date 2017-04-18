@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use View,DB;
+use View,Auth,DB;
 use App\Role;
 use App\User;
 class HomeController extends Controller
@@ -35,11 +35,19 @@ class HomeController extends Controller
 
     public function listOfStaff()
     {   
-        $list = Role::selectRaw('roles.*, users.*')->leftJoin('users','roles.icNumber', '=', 'users.icNumber')
-                ->where('roles.role', '!=', '1')->simplePaginate(1);
+        // $list = Role::selectRaw('roles.*, users.*')->leftJoin('users','roles.icNumber', '=', 'users.icNumber')
+        //         ->where('roles.role', '!=', '1')->paginate(2);
         //$list = DB::table('users')->simplePaginate(1);
         //return View::make('pages.listStaff')->with('postList', $list);
-         return view('pages.listStaff', ['staff' => $list]);
+         // return view('pages.listStaff', ['staff' => $list]);
          //return View::make('pages.listStaff')->with(['staff' => $list]);
+        $list = User::where('role', '!=', '1')->paginate(3);
+         //$list = DB::table('users')->paginate(15);
+         return view('pages.listStaff', ['staff' => $list]);
+    }
+
+    public function setting()
+    {
+        return view('pages.setting');
     }
 }
