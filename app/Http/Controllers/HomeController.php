@@ -34,16 +34,10 @@ class HomeController extends Controller
     }
 
     public function listOfStaff()
-    {   
-        // $list = Role::selectRaw('roles.*, users.*')->leftJoin('users','roles.icNumber', '=', 'users.icNumber')
-        //         ->where('roles.role', '!=', '1')->paginate(2);
-        //$list = DB::table('users')->simplePaginate(1);
-        //return View::make('pages.listStaff')->with('postList', $list);
-         // return view('pages.listStaff', ['staff' => $list]);
-         //return View::make('pages.listStaff')->with(['staff' => $list]);
-        $list = User::where('role', '!=', '1')->paginate(3);
-         //$list = DB::table('users')->paginate(15);
-         return view('pages.listStaff', ['staff' => $list]);
+    {  
+        $list = User::where('role', '!=', '1')->paginate(3, ['*'], 'staffList');
+        $LevelList = DB::table('users')->orderBy('role','asc')->paginate(3, ['*'], 'LevelAccess');
+         return view('pages.listStaff')->with('staff', $list)->with('LevelAccess', $LevelList);
     }
 
     public function setting()

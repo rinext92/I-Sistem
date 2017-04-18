@@ -15,7 +15,7 @@
 
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    List Of Staff
+                                    List Of Staff 
                                 </div>
 
                                  <div class="panel-body">
@@ -28,57 +28,41 @@
                                             <th></th>
                                         </tr>
                                         @foreach ($staff as $no => $p)
-                                            <tr>
-                                                <td>{{ $staff->firstItem() + $no }}</td>
-                                                <td>{{$p->name}}</td>
-                                                <td>{{$p->email}}</td>
-                                                <td>{{$p->created_at->format('d-M-Y')}}</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-id="" data-title="" data-target="#{{$p->icNumber}}">
-                                                      <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <div class="modal fade" id="{{$p->icNumber}}" tabindex="-1" role="dialog" aria-labelledby="favoritesModalLabel">
-                                              <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" 
-                                                      aria-label="Close">
-                                                      <span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="favoritesModalLabel">
-                                                        {{$p->name}}
-                                                    </h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <img src="img/usr_profile/{{$p->img_path}}" class="img-rounded" style="width:200px" />
-                                                        </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" 
-                                                       class="btn btn-default" 
-                                                       data-dismiss="modal">Close</button>
-                                                    <span class="pull-right">
-                                                      <button type="button" class="btn btn-primary">
-                                                        Add to Favorites
-                                                      </button>
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-
+                                            @include('staff.view_all_staff')
                                         @endforeach
+                                        <tr>
+                                          <td colspan="5" align="right">{{ $staff->links() }}</td>
+                                        </tr>
                                     </table>
                                  </div>
                             </div> 
+                        </div>                       
 
-                        </div>    
-                        {{ $staff->links() }}
+                        <hr>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                User Role
+                            </div>
+
+                             <div class="panel-body">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>IC Number</th>
+                                        <th>Level Access</th>
+                                    </tr>
+                                    @foreach ($LevelAccess as $no2 => $l)
+                                            @include('staff.view_levelAccess')
+                                    @endforeach
+                                    <tr>
+                                      <td colspan="5" align="right">{{ $LevelAccess->links() }}</td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
