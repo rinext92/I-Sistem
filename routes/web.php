@@ -19,6 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/profile', 'HomeController@viewProfile');
-Route::get('/viewStaff', 'HomeController@listOfStaff');
-Route::get('/setting', 'HomeController@setting');
+
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], 
+function()
+{
+	Route::get('/viewStaff', 'HomeController@listOfStaff');
+	Route::get('/setting', 'HomeController@setting');
+});
 
