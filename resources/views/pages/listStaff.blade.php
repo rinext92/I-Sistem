@@ -31,7 +31,7 @@
                                             @include('staff.view_all_staff')
                                         @endforeach
                                         <tr>
-                                          <td colspan="5" align="right">{{ $staff->links() }}</td>
+                                          <td colspan="5" align="right">{{$staff->appends(['LevelAccess' => $LevelAccess->currentPage()])->links()}}    </td>
                                         </tr>
                                     </table>
                                  </div>
@@ -45,18 +45,19 @@
                             </div>
 
                              <div class="panel-body">
-                                <table class="table table-striped">
+                                <table id="LevelAccessTable" class="table table-striped">
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>IC Number</th>
                                         <th>Level Access</th>
+                                        <th>&nbsp;</th>
                                     </tr>
                                     @foreach ($LevelAccess as $no2 => $l)
                                             @include('staff.view_levelAccess')
                                     @endforeach
                                     <tr>
-                                      <td colspan="5" align="right">{{ $LevelAccess->links() }}</td>
+                                      <td colspan="5" align="right">{{ $LevelAccess->appends(['staffList' => $staff->currentPage()])->links() }}</td>
                                     </tr>
                                 </table>
                              </div>
@@ -69,14 +70,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-    $('#favoritesModal').on("show.bs.modal", function (e) {
-         $("#favoritesModalLabel").html($(e.relatedTarget).data('title'));
-         $("#fav-title").html($(e.relatedTarget).data('title'));
-    });
-});
-</script>
-
 @endsection
 

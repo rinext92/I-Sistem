@@ -1,0 +1,25 @@
+p#popupBold{
+	font-weight: bold;
+}
+
+#tableAccess th, #tableAccess td{
+	text-align: center;
+	vertical-align:middle;
+}
+
+.glyphicon-ok{
+	color: green;
+}
+.glyphicon-remove{
+	color: red;
+}
+
+#selectRole{
+	width: 150px;
+}
+#tableAccess th{
+	background-color: #808080;
+}
+.roleText {
+	color:red;
+}

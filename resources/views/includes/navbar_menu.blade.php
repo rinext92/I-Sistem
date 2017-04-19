@@ -2,7 +2,7 @@
 	<li role="presentation" {{{ (Request::is('home') ? 'class=active' : '') }}}>
 		<a href="{{ url('/home') }}">Home</a>
 	</li>
-	@if (Auth::user()->role == '1')
+	@if (Auth::user()->role == '1' || Auth::user()->role == '2')
 		<li>&nbsp;</li>
 		<li role="presentation" {{{ (Request::is('viewStaff') ? 'class=active' : '') }}}>
 			<a href="{{ url('/viewStaff') }}">List Of Staff</a>

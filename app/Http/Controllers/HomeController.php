@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View,Auth,DB;
+use Input;
 use App\Role;
 use App\User;
 class HomeController extends Controller
@@ -43,5 +44,20 @@ class HomeController extends Controller
     public function setting()
     {
         return view('pages.setting');
+    }
+
+    public function LevelAccess($id)
+    {   
+        $user = User::where('id', '=', $id)->get();
+        return view('staff.LevelAccess')->with('user', $user);
+    }
+
+    public function changeRole($id, Request $request)
+    {
+        //$user_role = User::findOrFail($id);
+        //$roles = Input::get('selectRole');
+        $role = Input::get('selectRole');
+        User::where('id', $id)->update(array('role' => $role));
+        return redirect('viewStaff');
     }
 }

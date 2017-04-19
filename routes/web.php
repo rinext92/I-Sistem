@@ -25,5 +25,7 @@ function()
 {
 	Route::get('/viewStaff', 'HomeController@listOfStaff');
 	Route::get('/setting', 'HomeController@setting');
+	Route::get('levelAccess/{id}', 'HomeController@levelAccess');
+	Route::post('roleChange/{id}', 'HomeController@changeRole');
 });
 

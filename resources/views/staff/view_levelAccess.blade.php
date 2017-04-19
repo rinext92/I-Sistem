@@ -12,8 +12,8 @@
     	@endif
     </td>
     <td>
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-id="" data-title="" data-target="#{{$p->icNumber}}">
-          <span class="glyphicon glyphicon-search"></span>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.location='{{ url("levelAccess/$l->id") }}'">
+            <span class="glyphicon glyphicon-edit"></span>
         </button>
     </td>
 </tr>
