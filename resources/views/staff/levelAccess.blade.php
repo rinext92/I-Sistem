@@ -60,6 +60,7 @@
                                                 @endif
                                             </select>
                                     {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
+                                    <a href="/viewStaff" class="btn btn-warning">Cancel</a>
                                             <hr>
                                             <table class="table table-bordered" id="tableAccess">
                                                 <tr>

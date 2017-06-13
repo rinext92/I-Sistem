@@ -17,9 +17,56 @@ p#popupBold{
 #selectRole{
 	width: 150px;
 }
+
 #tableAccess th{
 	background-color: #808080;
 }
 .roleText {
 	color:red;
+}
+
+#footerProfile{
+	text-align: right;
+}
+
+#AddItemTable tbody tr:hover td{
+    background-color: #c5ff99;
+}
+
+#AddItemTable th{
+	background-color: #afbcd1;
+	text-align: center;
+}
+
+#rowValue{
+	display: none;
+}
+
+#searchTbl thead{
+	background-color: #afbcd1;
+	text-align: center;
+	font-weight: bold;
+}
+
+#searchbx{
+	width: 300px;
+}
+
+
+#loadingmessage{
+	text-align: center;
+}
+
+#deleteCategoryReminder{
+	color: red;
+	text-align: center;
+}
+
+#tableInactiveStatus th{
+	background-color: #f45942;
+}
+
+#tableInactiveStatus th, td{
+	text-align: center;
+	vertical-align:middle;
 }
