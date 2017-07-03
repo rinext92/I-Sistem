@@ -44,26 +44,25 @@
                                                     <h4 class="modal-title">{{ $ec->category_name }}</h4>
                                                 </div>
                                                 <div class="modal-body">                                                 
-                                                    {{ Form::open(array('url' => 'editCategory/'.$ec->id, 'class' => 'form-inline', 'method' => 'put', 'onsubmit' => 'return confirm("Are sure want to save this edit?")'))}}
+                                                    {{ Form::open(array('url' => 'editCategory/'.$ec->id, 'method' => 'put', 'onsubmit' => 'return confirm("Are sure want to save this edit?")'))}}
                                                         {{ csrf_field() }}
-                                                        <div class="form-inline">
-                                                            <div class="row">
-                                                                <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <div class="form-inline">
                                                                 {{ Form::label('forCatName' , 'Category Name :', array('class' => 'form-horizontal'))}}
-                                                                {{ Form::text('txtbxCatName', $ec->category_name, array('class' => 'form-control', 'style' => 'width:100%'))}}
-                                                                </div>
+                                                                {{ Form::text('txtbxCatName', $ec->category_name, array('class' => 'form-control', 'style' => 'width:65%'))}}
                                                             </div> 
-
                                                         </div>
+
                                                         <div>&nbsp;</div>
-                                                        <div class="form-inline">
-                                                        {{ Form::label('forCatDateCreate' , 'Create Date :', array('class' => 'form-horizontal'))}}
-                                                        {{ Form::text('txtbxCatDateCreate', $ec->created_at->format('Y-m-d'), array('class' => 'form-control', 'style' => 'width:150px', 'readonly' => 'true')) }}
+                                                        <div class="form-group">
+                                                            <div class="form-inline">
+                                                            {{ Form::label('forCatDateCreate' , 'Create Date :', array('class' => 'form-horizontal'))}}
+                                                            {{ Form::text('txtbxCatDateCreate', $ec->created_at->format('Y-m-d'), array('class' => 'form-control', 'style' => 'width:150px', 'readonly' => 'true')) }}
 
-                                                        {{ Form::label('forCatTimeCreate' , 'Create Time :', array('class' => 'form-horizontal'))}}
-                                                        {{ Form::text('txtbxCatDateCreate', $ec->created_at->format('H:i:s'), array('class' => 'form-control', 'style' => 'width:150px', 'readonly' => 'true')) }}
-                                                        </div>
-                                                                                                       
+                                                            {{ Form::label('forCatTimeCreate' , 'Create Time :', array('class' => 'form-horizontal'))}}
+                                                            {{ Form::text('txtbxCatDateCreate', $ec->created_at->format('H:i:s'), array('class' => 'form-control', 'style' => 'width:150px', 'readonly' => 'true')) }}
+                                                            </div>
+                                                        </div>                                                                               
                                                 </div>
                                                 <div class="modal-footer">
                                                     {{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Save', ['class' => 'btn btn-primary btn-sm', 'type' => 'submit']) }}

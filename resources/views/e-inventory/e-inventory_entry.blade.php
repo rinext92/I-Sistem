@@ -37,7 +37,9 @@
            				<td id="rowDropDown1">
            					<select id="myCategory" class="form-control" name="myCategory[]">
            						@foreach ($cat as $noCategory => $c)
-                        <option class="form-control" value="{{ $c->categorySerialID }}">{{ $c->category_name }}</option>
+                        @if ($c->status == 1)
+                          <option class="form-control" value="{{ $c->categorySerialID }}">{{ $c->category_name }}</option>
+                        @endif
                       @endforeach
            					</select>
            				</td>

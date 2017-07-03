@@ -57,6 +57,10 @@ p#popupBold{
 	text-align: center;
 }
 
+#loadingmessage2{
+	text-align: center;
+}
+
 #deleteCategoryReminder{
 	color: red;
 	text-align: center;
@@ -69,4 +73,24 @@ p#popupBold{
 #tableInactiveStatus th, td{
 	text-align: center;
 	vertical-align:middle;
+}
+
+#tblListItem th{
+	text-align: left;
+}
+
+#tblListItem td{
+	text-align: left;
+}
+ 
+#staffTableList td{
+	text-align: left;
+}
+
+#LevelAccessTable td{
+	text-align: left;
+}
+
+#TblCategory thead{
+	background-color: #808080;
 }

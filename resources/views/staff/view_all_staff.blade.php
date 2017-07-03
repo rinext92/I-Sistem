@@ -24,7 +24,11 @@
       <div class="modal-body">
         <div class="row">
             <div class="col col-md-4">
+              @if ($p->img_path == "default.jpg")
                 <img src="{{ asset('img/usr_profile/'.$p->img_path)}}" class="img-rounded" style="width:150px;height: 150px" />
+              @else
+                <img src="{{ asset('img/usr_profile/'.$p->id.'.'.$p->img_path)}}" class="img-rounded" style="width:150px;height: 150px" />
+              @endif
             </div>
             <div class="col-6 col-md-8">
                 <p id="popupBold">Name : {{$p->name}}</p>

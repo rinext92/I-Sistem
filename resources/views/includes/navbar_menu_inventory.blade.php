@@ -21,15 +21,28 @@
           <li {{{ (Request::is('i-entry') ? 'class=active' : '') }}}>
             <a href="{{ url('/i-entry') }}">Insert New Item</a>
           </li>
-
-          <li {{{ (Request::is('i-newCategory') ? 'class=active' : '') }}}>
-            <a href="{{ url('/i-newCategory') }}">Category</a>
-          </li>
         </ul>
       </li>
 
-      <li><a href="#">Page 3</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li {{{ (Request::is('i-newCategory') ? 'class=active' : '') }}}>
+              <a href="{{ url('/i-newCategory') }}">Add</a>
+            </li>
+            <li {{ (Request::is('i-updateCategory') ? 'class=active' : '') }} >
+                <a href="{{ url('/i-updateCategory') }}">Edit</a>
+            </li>
+            <li {{{ (Request::is('i-deleteCategory') ? 'class=active' : '') }}}>
+                <a href="{{ url('/i-deleteCategory') }}">Delete</a>
+            </li>
+        </ul>
+      </li>
     </ul>
 
   </div>
 </nav>
+
+

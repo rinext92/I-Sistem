@@ -64,7 +64,7 @@ class InventoryController extends Controller
 
                 for($c=0; $c<$length; $c++)
                 {   
-                    if($category[$i] == $categoryArray[$c]->category_name)
+                    if($category[$i] == $categoryArray[$c]->categorySerialID)
                     {   
                         $countTotal = 0;
                         $countTotal = $categoryArray[$c]->total;
@@ -108,7 +108,38 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-       return redirect('i-entry');
+        $items = Inventory::findOrFail($id);
+        $items->item_name       = Input::get('txtBxItemName');
+        $items->serialNumber      = Input::get('txtBxSerialNumber');
+
+        $oriCategory = Input::get('invisibleCategory');
+        $selectedCategory = Input::get('selectCat');
+        
+        $oriCategory2 = Category::where('categorySerialID', '=', $oriCategory)->first();
+        $selectedCategory2 = Category::where('categorySerialID', '=', $selectedCategory)->first();
+
+            if($oriCategory == $selectedCategory)
+            {
+                $items->category = $selectedCategory;
+                //Category::where('categorySerialID', '=', $selectedCategory)->update(array('total' => $selectedTotal+1));
+            }
+            else
+            {   
+                $oriTotal = 0;
+                $selectedTotal = 0;
+                $oriTotal = $oriCategory2->total;
+                $$selectedTotal = $selectedCategory2->total;
+                Category::where('categorySerialID', '=', $oriCategory)->update(array('total' => $oriTotal-1));
+                Category::where('categorySerialID', '=', $selectedCategory)->update(array('total' => $selectedTotal+1));
+            }
+
+        $items->category = $selectedCategory; 
+        $items->total = Input::get('txtBxTotal');
+        $items->save();
+
+        // redirect
+       
+        return redirect('i-view');
     }
 
     /**
@@ -120,8 +151,10 @@ class InventoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+        $categorySerial = $category->categorySerialID;
         $category->delete();
 
+        $item  = Inventory::where('category', '=', $categorySerial)->delete();
         return redirect('i-deleteCategory')->with('message', 'Selected Category successfully deleted.');
     }
 
@@ -171,6 +204,11 @@ class InventoryController extends Controller
         return view('e-inventory.e-inventory_deletecategory')->with('categories',$category)->with('inactiveStats', $InactiveStatus);
     }
 
+    public function categoryPage()
+    {
+        return view('e-inventory.e-inventory_category');
+    }
+
     public function editCategoryPage()
     {
         $Editcategory = Category::orderBy('id', 'asc')->paginate(5);
@@ -208,6 +246,52 @@ class InventoryController extends Controller
         return redirect('i-updateCategory');
     }
 
+    public function ChangeStatsCategory(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        Category::where('id', $id)->update(array('status' => "0"));
+
+        return redirect('i-deleteCategory')->with('message', 'Selected Category successfully deleted.');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        Category::where('id', $id)->update(array('status' => "1"));
+
+        return redirect('i-deleteCategory')->with('message', 'Selected Category successfully updated.');
+    }
+
+    public function viewCategory(Request $request)
+    {
+        if($request->ajax())
+        {   
+            $output="";
+            $itemSearch = DB::table('Inventory')->where('category', '=', $request->categoryIs)->get();
+            if($itemSearch)
+            {   $countData = 0;
+                $output.= '<thead><tr><td style="width:5%;text-align: center;">No</td><td>Item Name</td><td>Serial Number</td><td>Category</td>'.
+                           '<td style="width: 7%">Quantity</td></tr></thead><tbody>';
+                foreach ($itemSearch as $key => $i) {
+                     $output.=  '<tr>'.
+                                    '<td style="text-align:center">'.++$key.'</td>'.
+                                    '<td>'.$i->item_name.'</td>'.
+                                    '<td>'.$i->serialNumber.'</td>'.
+                                    '<td>'.$i->category.'</td>'.
+                                    '<td>'.$i->total.'</td>'.
+                                '</tr>';
+                    $countData = $key;
+                }
+                $output.= '</tbody>'; 
+            }
+            if($countData == 0)
+            {
+                 $output = "<tr style='background-color:red'><td style='text-align:center;font-weight:bold;'>No Data Found!</td></tr>";
+            }
+            return Response($output);
+        }
+    }
+
     public function generateRandomString($length = 10) 
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -218,4 +302,5 @@ class InventoryController extends Controller
         }
         return $randomString;
     }
+
 }

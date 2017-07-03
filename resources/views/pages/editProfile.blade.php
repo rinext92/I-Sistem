@@ -25,6 +25,7 @@
                                     <div class="col-sm-4">
                                       @if ($ud->img_path == "default.jpg")
                                         <img src="{{ asset('img/usr_profile/'.$ud->img_path)}}" class="img-rounded" alt="under-maintenance" width="200" height="200"/>
+                                        <input type="file" name="image" align="left" />
                                       @else
                                         <img src="{{ asset('img/usr_profile/'.$ud->id.'.'.$ud->img_path)}}" class="img-rounded" alt="under-maintenance" width="200" height="200"/>
                                         <input type="file" name="image" align="left" />

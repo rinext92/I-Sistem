@@ -19,7 +19,7 @@
                                 </div>
 
                                  <div class="panel-body">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="staffTableList">
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>

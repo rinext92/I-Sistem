@@ -24,8 +24,7 @@
                                 <th><i class="glyphicon glyphicon-trash"></i></th>
                             </tr>
                             @foreach ($categories as $no => $c) 
-                                {{ Form::open(['method' => 'delete', 'route' => ['delCategory.destroy', $c->id], 'onsubmit' => 'return confirm("Are you sure?")']) }}
-                                    {{ method_field('DELETE') }}
+                                {{ Form::open(array('url' => 'UnCategorizedCategory/'.$c->id, 'method' => 'put', 'onsubmit' => 'return confirm("Are you sure want to delete this category? Once you delete this, all the item under this category will uncategorized and unavailable.")'))}}
                                 <tr>
                                     <td>{{ $categories->firstItem() + $no }}</td>
                                     <td>{{ $c->category_name }}</td>
@@ -52,7 +51,8 @@
                                 <th>Before</th>
                                 <th>After</th>
                                 <th>Total Number Of Item</th>
-                                <th>&nbsp;</th>
+                                <th><i class="glyphicon glyphicon-trash"></i></th>
+                                <th><i class="glyphicon glyphicon-pencil"></i></th>
                             </tr>
                             @foreach ($inactiveStats as $no2 => $in)
                                 <tr>
@@ -61,9 +61,18 @@
                                     <td>Unknown {{ $inactiveStats->firstItem() + $no2 }}</td>
                                     <td>{{ $in->total }}</td>
                                     <td>
-                                        {{ Form::open(array('url' => 'deleteUnCategorized/'.$in->id, 'method' => 'delete', 'onsubmit' => 'confirm return("Are you sure want to delete this category? Once you delete this, it will be permenantly remove from this system.")'))}}
+                                        {{ Form::open(['method' => 'delete', 'route' => ['delCategory.destroy', $in->id], 'onsubmit' => 'return confirm("Are you sure want to delete this category? Once you delete this, it will be permenantly remove from this system and all the item under this category will also be deleted.")']) }}
+                                            {{ method_field('DELETE') }}
+                                       
 
                                             {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', ['class' => 'btn btn-danger btn-sm', 'type' => 'submit']) }}
+
+                                        {{ Form::close()}}
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('url' => 'ChangeCategoryStats/'.$in->id, 'method' => 'put', 'onsubmit' => 'return confirm("Are you sure want to change this category to active and available back?")'))}}
+
+                                            {{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Active', ['class' => 'btn btn-success btn-sm', 'type' => 'submit']) }}
 
                                         {{ Form::close()}}
                                     </td>

@@ -36,17 +36,20 @@ function()
 	Route::get('i-entry', 'InventoryController@create');
 	Route::post('add-new-item','InventoryController@store');
 	Route::get('i-view', 'InventoryController@index');
+
+	//inventory->category
 	Route::post('add-new-category','InventoryController@addCategory');
-	Route::get('i-newCategory', function(){
-		return view('e-inventory.e-inventory_category');
-	});
+	Route::get('i-newCategory', 'InventoryController@categoryPage');
 	Route::get('i-deleteCategory', 'InventoryController@deleteCategory');
 	Route::get('i-updateCategory', 'InventoryController@editCategoryPage');
 	Route::get('findItem', 'InventoryController@find');
 	Route::get('findCategory', 'InventoryController@checkCategory');
 	Route::resource('delCategory', 'InventoryController');
 	Route::put('editCategory/{id}', 'InventoryController@updateCategory');
-	
+	Route::put('UnCategorizedCategory/{id}', 'InventoryController@ChangeStatsCategory');
+	Route::put('ChangeCategoryStats/{id}', 'InventoryController@updateStatus');
+	Route::get('ViewCategory', 'InventoryController@viewCategory');
+	Route::resource('itemUpdate', 'InventoryController');
 });
 
 
