@@ -50,6 +50,9 @@ function()
 	Route::put('ChangeCategoryStats/{id}', 'InventoryController@updateStatus');
 	Route::get('ViewCategory', 'InventoryController@viewCategory');
 	Route::resource('itemUpdate', 'InventoryController');
+	Route::post('DeleteItem/{id}', 'InventoryController@deleteItem');
+	Route::get('e-inventory', 'InventoryController@inventoryHome'); 
+
 });
 
 
@@ -57,9 +60,7 @@ Route::get('e-asset', function() {
 	return view('e-asset.e-asset');
 });
 
-Route::get('e-inventory', function() {
-	return view('e-inventory.e-inventory');
-});
+
 
 Route::get('search', function() {
 	return view('test');

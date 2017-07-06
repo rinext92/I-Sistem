@@ -135,7 +135,7 @@
                     <div class="modal fade" id="itemDelete{{ $i->id}}" role="dialog">
                         <div class="modal-dialog modal-md">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header" style="background-color: #f4cd41;">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">{{ $i->item_name }}</h4>
                                 </div>
@@ -146,6 +146,7 @@
 
                                     <div class="form-group">
                                         <div class="form-inline"> 
+                                        {{ Form::open(array('url' => 'DeleteItem/'.$i->id, 'onsubmit' => 'return confirm("Are sure want to delete this item? Once delete, the quantity of the item will also be delete.")'))}}
                                         {{ Form::submit('Yes', ['class' => 'btn btn-danger', 'id' => 'btnDelete', 'style' => 'display:inline-block']) }}
                                         {{ Form::close() }}  
                                         <button class="btn btn-default" data-dismiss="modal">No</button>
@@ -197,7 +198,11 @@
         </div>
     </div>
 </div>
-
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        <b>{{ session()->get('message') }}</b>
+    </div>
+@endif
 <script type="text/javascript">
     $('form input').on('keypress', function(e) {
     return e.which !== 13;

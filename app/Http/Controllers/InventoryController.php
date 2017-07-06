@@ -19,6 +19,12 @@ class InventoryController extends Controller
         $this->middleware('auth');
     }
 
+    public function inventoryHome()
+    {   
+        
+        return view('e-inventory.e-inventory');
+    }
+
     public function index()
     {
         $items = Inventory::orderBy('item_name', 'asc')->paginate(3);
@@ -136,8 +142,6 @@ class InventoryController extends Controller
         $items->category = $selectedCategory; 
         $items->total = Input::get('txtBxTotal');
         $items->save();
-
-        // redirect
        
         return redirect('i-view');
     }
@@ -159,7 +163,7 @@ class InventoryController extends Controller
     }
 
     public function find(Request $request)
-    {
+    {   $categories = Category::orderBy('category_name', 'asc')->get();
         if($request->ajax())
         {   
             $output="";
@@ -168,12 +172,18 @@ class InventoryController extends Controller
             {   $countData = 0;
                 $output.= '<thead><tr><td style="width:5%;text-align: center;">No</td><td>Item Name</td><td>Serial Number</td><td>Category</td>'.
                            '<td style="width: 7%">Quantity</td></tr></thead><tbody>';
-                foreach ($itemSearch as $key => $i) {
+                foreach ($itemSearch as $key => $i) 
+                {   
+                    foreach ($categories as $cat =>$c) 
+                    {   
+                        if($c->categorySerialID == $i->category)
+                        {$cat_name = $c->category_name;}
+                    }
                      $output.=  '<tr>'.
                                     '<td style="text-align:center">'.++$key.'</td>'.
                                     '<td>'.$i->item_name.'</td>'.
                                     '<td>'.$i->serialNumber.'</td>'.
-                                    '<td>'.$i->category.'</td>'.
+                                    '<td>'.$cat_name.'</td>'.
                                     '<td>'.$i->total.'</td>'.
                                 '</tr>';
                     $countData = $key;
@@ -270,14 +280,13 @@ class InventoryController extends Controller
             $itemSearch = DB::table('Inventory')->where('category', '=', $request->categoryIs)->get();
             if($itemSearch)
             {   $countData = 0;
-                $output.= '<thead><tr><td style="width:5%;text-align: center;">No</td><td>Item Name</td><td>Serial Number</td><td>Category</td>'.
+                $output.= '<thead><tr><td style="width:5%;text-align: center;">No</td><td>Item Name</td><td>Serial Number</td>'.
                            '<td style="width: 7%">Quantity</td></tr></thead><tbody>';
                 foreach ($itemSearch as $key => $i) {
                      $output.=  '<tr>'.
                                     '<td style="text-align:center">'.++$key.'</td>'.
                                     '<td>'.$i->item_name.'</td>'.
                                     '<td>'.$i->serialNumber.'</td>'.
-                                    '<td>'.$i->category.'</td>'.
                                     '<td>'.$i->total.'</td>'.
                                 '</tr>';
                     $countData = $key;
@@ -301,6 +310,13 @@ class InventoryController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+
+    public function deleteItem(Request $request, $id)
+    {
+        $itemSelect = Inventory::findOrFail($id);
+        $itemSelect->delete();
+        return redirect('/i-view')->with('message', 'Item successfully deleted.');
     }
 
 }
